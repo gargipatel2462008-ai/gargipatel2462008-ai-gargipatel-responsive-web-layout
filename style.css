@@ -1,0 +1,515 @@
+/* --- SYSTEM ARCHITECTURE DESIGN VARIABLES --- */
+:root {
+    --bg-dark-primary: #0a0e14;
+    --bg-dark-secondary: #121824;
+    --text-pure: #ffffff;
+    --text-muted: #a0aec0;
+    --accent-orange: #ff9f1c;
+    --border-color: #1e293b;
+    --font-stack: 'Plus Jakarta Sans', sans-serif;
+    
+    /* Project 2 Rule: Fluid Typography Engine */
+    --font-size-hero: clamp(2rem, 5vw, 3.5rem);
+    --font-size-section: clamp(1.6rem, 4vw, 2.2rem);
+    --font-size-body: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+/* --- RESET ENGINE & ACCESSIBILITY CONFIG --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: var(--font-stack);
+    background-color: var(--bg-dark-primary);
+    color: var(--text-pure);
+    /* WCAG Compliance Rule: Allow seamless user magnification */
+    text-size-adjust: 100%;
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- MACRO STRUCTURAL GRID SCAFFOLDING --- */
+.grid-layout-engine {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+}
+
+/* --- RESPONSIVE APPLICATION HEADER & POPOVER NAVIGATION --- */
+.global-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(10, 14, 20, 0.95);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo span {
+    color: var(--accent-orange);
+}
+
+/* Hide checkbox engine trigger input */
+.menu-toggle-checkbox {
+    display: none;
+}
+
+/* Designing Touch Target Hamburger: Optimized for Thumbs (Minimum 44px x 44px target area) */
+.menu-toggle-label {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 44px;
+    height: 44px;
+    padding: 12px 10px;
+    cursor: pointer;
+    z-index: 1010;
+}
+
+.menu-toggle-label span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-pure);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navigation-gateways ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--accent-orange);
+    outline: none;
+}
+
+/* --- UTILITIES & SECTION CONTAINER SCALING --- */
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(3rem, 8vw, 6rem) 2rem;
+}
+
+.section-title {
+    font-size: var(--font-size-section);
+    font-weight: 700;
+    margin-bottom: 3rem;
+    letter-spacing: -0.5px;
+}
+
+.highlight {
+    color: var(--accent-orange);
+}
+
+.section-divider {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+}
+
+/* --- HERO DESIGN WITH FLUID PROPERTIES --- */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+}
+
+.hero-container {
+    max-width: 850px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.track-badge {
+    color: var(--accent-orange);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 1.2rem;
+}
+
+.hero-title {
+    font-size: var(--font-size-hero);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-body);
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Accessible Touch Targets: 44px min-height allocation guaranteed */
+.btn {
+    padding: 0.8rem 2rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-filled {
+    background-color: var(--accent-orange);
+    color: var(--bg-dark-primary);
+}
+
+.btn-filled:hover {
+    background-color: #e08a10;
+    transform: translateY(-2px);
+}
+
+.btn-outlined {
+    border: 1px solid var(--border-color);
+    color: var(--text-pure);
+}
+
+.btn-outlined:hover {
+    background-color: var(--bg-dark-secondary);
+    border-color: var(--text-muted);
+    transform: translateY(-2px);
+}
+
+/* --- ABOUT ME SECTION: FLUID GRID LAYOUT --- */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+}
+
+.about-bio p {
+    color: var(--text-muted);
+    font-size: var(--font-size-body);
+    margin-bottom: 1.5rem;
+}
+
+.profile-card {
+    background-color: var(--bg-dark-secondary);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+}
+
+.meta-row:last-child {
+    border-bottom: none;
+}
+
+.meta-label {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.meta-value {
+    color: var(--text-pure);
+    font-weight: 600;
+    text-align: right;
+}
+
+/* --- TECHNICAL FRAMEWORKS ADAPTIVE AUTO-FILL GRID --- */
+.skills-grid {
+    display: grid;
+    /* Slide Grid architecture config: Auto responsive without explicit height metrics */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.skill-card {
+    background-color: var(--bg-dark-secondary);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.skill-card:hover {
+    border-color: var(--accent-orange);
+    transform: translateY(-2px);
+}
+
+.skill-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.skill-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.skill-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- ENGINEERING MILESTONES SCALED INTERACTION --- */
+.project-card {
+    background-color: var(--bg-dark-secondary);
+    border: 1px solid var(--border-color);
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border-radius: 12px;
+    transition: border-color 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: var(--accent-orange);
+}
+
+.project-tag {
+    color: var(--accent-orange);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.project-card h3 {
+    font-size: clamp(1.3rem, 3vw, 1.75rem);
+    margin: 0.5rem 0 1rem 0;
+}
+
+.project-card p {
+    color: var(--text-muted);
+    font-size: var(--font-size-body);
+    margin-bottom: 2rem;
+}
+
+.tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.tech-badges span {
+    background-color: rgba(255, 159, 28, 0.1);
+    color: var(--accent-orange);
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+/* --- COMMUNICATION CHANNELS: FLEX INTERACTIVE NODES --- */
+.section-subtitle {
+    color: var(--text-muted);
+    margin-top: -2.5rem;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+}
+
+.channels-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.channel-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background-color: var(--bg-dark-secondary);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+}
+
+.channel-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.channel-icon {
+    font-size: 1.7rem;
+}
+
+.channel-meta h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.1rem;
+}
+
+.channel-meta p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Thumb Target Button Rules: Min 44px alignment footprint tracking */
+.channel-btn {
+    background-color: transparent;
+    border: 1px solid var(--accent-orange);
+    color: var(--accent-orange);
+    padding: 0.6rem 1.5rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.channel-btn:hover,
+.channel-btn:focus {
+    background-color: var(--accent-orange);
+    color: var(--bg-dark-primary);
+    outline: none;
+}
+
+/* --- GLOBAL PORTAL FOOTER --- */
+.global-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.global-footer p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* --- PROJECT 2 BREAKPOINT MANAGEMENT MATRIX (Responsive Adjustments) --- */
+
+/* Breakpoint 1: Desktop/Tablets Layout shift down track */
+@media (max-width: 1024px) {
+    .about-grid {
+        grid-template-columns: 1.2fr 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Breakpoint 2: Tablet Landscape and Mobile Core Breakpoints (768px Window) */
+@media (max-width: 768px) {
+    .menu-toggle-label {
+        display: flex; /* Popover API Hamburger Display Activated */
+    }
+
+    /* Transform classic Navigation into a Fluid Collapsible Popover Interface */
+    .navigation-gateways {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-dark-secondary);
+        border-bottom: 1px solid var(--border-color);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .navigation-gateways ul {
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .nav-link {
+        display: block;
+        font-size: 1.1rem;
+    }
+
+    /* CSS Checkbox Trick State Change Configuration - No JavaScript Hook Required */
+    .menu-toggle-checkbox:checked ~ .navigation-gateways {
+        max-height: 400px;
+    }
+
+    .menu-toggle-checkbox:checked ~ .menu-toggle-label span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-toggle-checkbox:checked ~ .menu-toggle-label span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle-checkbox:checked ~ .menu-toggle-label span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Breakpoint 3: Extreme Mobile Terminal Matrix (480px Window Boundary) */
+@media (max-width: 480px) {
+    .hero-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .channel-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .channel-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
